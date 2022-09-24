@@ -33,10 +33,10 @@ const [isPending, setIsPending] = useState(false)
                 catch(err) {
 
                     console.log(err.message)
-                    setError(error.message)
+                    setError(err.message)
                     setIsPending(false)
                 }
         }
 
-        return {error, isPending, signup}
+        return {signup, error, isPending }
 }
