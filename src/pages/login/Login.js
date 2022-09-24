@@ -27,7 +27,8 @@ export default function Login() {
         />
       </label>
       <label>
-       <span>Password</span></label>
+       <span>Password:</span>
+       </label>
        <input 
        type="password"
        onChange={(e) => setPassword(e.target.value)}
