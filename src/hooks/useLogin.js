@@ -11,7 +11,7 @@ export const useLogin = () => {
     
     const login = async(email, password) => {
         setError(null)
-        setIsPending(true)
+        setIsPending(false)
 
         // sign the user out
 
