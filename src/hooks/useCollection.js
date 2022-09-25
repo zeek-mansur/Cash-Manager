@@ -1,16 +1,24 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { projectFirestore } from "../components/firebase/config"
 
 
 
-export const useCollection = (collection) => {
+export const useCollection = (collection, _query) => {
 
     const [documents, setDocuments] = useState( null)
     const [error, setError] = useState(null)
 
+    // if we dont use a ref --> infinite lop in useEffect
+    // _query is an array and is "different" on every function call
+    const query = useRef(_query).current
+
     useEffect (()  => {
 
         let ref = projectFirestore.collection(collection)
+
+        if (query) {
+            ref = ref.where(...query)
+        }
 
             const unsubscribe = ref.onSnapshot((snapshot) => {
 
@@ -31,7 +39,7 @@ export const useCollection = (collection) => {
 
                 return () => unsubscribe()
     
-    }, [collection])
+    }, [collection, query])
 
     return {documents, error}
 
